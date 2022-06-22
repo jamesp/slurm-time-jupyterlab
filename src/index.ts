@@ -8,7 +8,7 @@ import { Widget } from '@lumino/widgets';
 import { requestAPI } from './handler';
 
 function formatRemaining(timedelta: number): string {
-  const td = new Date(timedelta)
+  const td = new Date(Date.UTC(0, 0, 0, 0, 0, 0, timedelta))
   return td.toLocaleTimeString([], {
     hour: '2-digit', minute: '2-digit', second: '2-digit'
   })
