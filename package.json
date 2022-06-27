@@ -1,5 +1,5 @@
 {
-  "name": "slurm-time",
+  "name": "slurm-time-jupyterlab",
   "version": "0.1.0",
   "description": "Show slurm job time remaining in the jupyterlab interface",
   "keywords": [
@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/jamesp/slurm-time",
+  "homepage": "https://github.com/jamesp/slurm-time-jupyterlab",
   "bugs": {
-    "url": "https://github.com/jamesp/slurm-time/issues"
+    "url": "https://github.com/jamesp/slurm-time-jupyterlab/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -25,7 +25,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jamesp/slurm-time.git"
+    "url": "https://github.com/jamesp/slurm-time-jupyterlab.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
