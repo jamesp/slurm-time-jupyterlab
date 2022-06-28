@@ -1,6 +1,6 @@
 # slurm_time
 
-[![Github Actions Status](https://github.com/jamesp/slurm-time/workflows/Build/badge.svg)](https://github.com/jamesp/slurm-time/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/jamesp/slurm-time-jupyterlab/workflows/Build/badge.svg)](https://github.com/jamesp/slurm-time-jupyterlab/actions/workflows/build.yml)
 Show slurm job time remaining in the jupyterlab interface
 
 This extension is composed of a Python package named `slurm_time`
@@ -126,7 +126,7 @@ jlpm test
 
 #### Integration tests
 
-This extension uses [Playwright](https://playwright.dev/docs/intro/) for the integration tests (aka user level tests).
+This extension uses Playwright for the integration tests (aka user level tests).
 More precisely, the JupyterLab helper [Galata](https://github.com/jupyterlab/jupyterlab/tree/master/galata) is used to handle testing the extension in JupyterLab.
 
 More information are provided within the [ui-tests](./ui-tests/README.md) README.
