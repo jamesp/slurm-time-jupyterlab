@@ -15,7 +15,6 @@ def _read_slurm_time(timestring: str) -> datetime.timedelta:
 
 
 def slurm_time_remaining(jobid: str) -> datetime.timedelta:
-    # TODO: Error checking, tests
     total_elapsed = (
         subprocess.run(
             ["sacct", "-j", jobid, "-P", "--format", "time,elapsed", "--noheader"],
@@ -37,12 +36,17 @@ class RouteHandler(APIHandler):
     def get(self):
         jobid = os.environ.get("SLURM_JOBID")
         if jobid:
-            remaining = slurm_time_remaining(jobid)
-            self.finish(
-                json.dumps({"data": {"remaining": remaining.seconds}, "error": ""})
+            try:
+                remaining = slurm_time_remaining(jobid)
+                self.finish(
+                json.dumps({"data": {"remaining": remaining.seconds}, "error": None})
             )
+            except Exception as e:
+                self.finish(
+                    json.dumps({"data": None, "error": str(e)})
+                )
         else:
-            self.finish(json.dumps({"data": "", "error": "no jobid"}))
+            self.finish(json.dumps({"data": None, "error": "no jobid"}))
 
 
 def setup_handlers(web_app):
