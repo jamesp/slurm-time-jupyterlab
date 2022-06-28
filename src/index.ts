@@ -26,29 +26,32 @@ const plugin: JupyterFrontEndPlugin<void> = {
   activate: (app: JupyterFrontEnd, statusBar: IStatusBar) => {
     console.log('JupyterLab extension slurm-time activated');
 
-    requestAPI<any>('get_time')
+    requestAPI<{ data?: { remaining: number }; error?: string }>('get_time')
       .then(data => {
-        // TODO: check data.data.error and fail if errored
+        if (!data.data) {
+          console.log('Could not load slurm time remaining: ' + data.error);
+          return;
+        } else {
+          const endTime = new Date();
+          endTime.setSeconds(endTime.getSeconds() + data.data.remaining);
 
-        const endTime = new Date();
-        endTime.setSeconds(endTime.getSeconds() + data.data.remaining);
+          const statusWidget = new Widget();
 
-        const statusWidget = new Widget();
+          setInterval(() => {
+            const now = new Date();
+            const delta = endTime.getTime() - now.getTime();
+            statusWidget.node.textContent = `Time remaining: ${formatRemaining(
+              delta
+            )}`;
+          }, 1000);
 
-        setInterval(() => {
-          const now = new Date();
-          const delta = endTime.getTime() - now.getTime();
-          statusWidget.node.textContent = `Time remaining: ${formatRemaining(
-            delta
-          )}`;
-        }, 1000);
+          statusBar.registerStatusItem('lab-status', {
+            align: 'middle',
+            item: statusWidget
+          });
 
-        statusBar.registerStatusItem('lab-status', {
-          align: 'middle',
-          item: statusWidget
-        });
-
-        console.log(`Session will end at ${endTime}`);
+          console.log(`Session will end at ${endTime}`);
+        }
       })
       .catch(reason => {
         console.error(

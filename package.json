@@ -1,5 +1,5 @@
 {
-  "name": "slurm-time-jupyterlab",
+  "name": "slurm-time",
   "version": "0.1.0",
   "description": "Show slurm job time remaining in the jupyterlab interface",
   "keywords": [

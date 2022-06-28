@@ -39,12 +39,12 @@ class RouteHandler(APIHandler):
             try:
                 remaining = slurm_time_remaining(jobid)
                 self.finish(
-                json.dumps({"data": {"remaining": remaining.seconds}, "error": None})
-            )
-            except Exception as e:
-                self.finish(
-                    json.dumps({"data": None, "error": str(e)})
+                    json.dumps(
+                        {"data": {"remaining": remaining.seconds}, "error": None}
+                    )
                 )
+            except Exception as e:
+                self.finish(json.dumps({"data": None, "error": str(e)}))
         else:
             self.finish(json.dumps({"data": None, "error": "no jobid"}))
 
